@@ -27,7 +27,6 @@
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -43,25 +42,17 @@
       overflow-x: hidden;
     }
 
-    /* ── SCANLINES OVERLAY ── */
     body::before {
       content: "";
       position: fixed;
       inset: 0;
       background:
-        repeating-linear-gradient(
-          to bottom,
-          transparent 0px,
-          transparent 2px,
-          rgba(0,0,0,0.35) 2px,
-          rgba(0,0,0,0.35) 4px
-        ),
+        repeating-linear-gradient(to bottom, transparent 0px, transparent 2px, rgba(0,0,0,0.35) 2px, rgba(0,0,0,0.35) 4px),
         rgba(0,0,0,0.72);
       pointer-events: none;
       z-index: 1;
     }
 
-    /* ── VIGNETTE ── */
     body::after {
       content: "";
       position: fixed;
@@ -71,7 +62,7 @@
       z-index: 1;
     }
 
-    /* ── BOOT OVERLAY ── */
+    /* ══ BOOT OVERLAY ══ */
     .boot-overlay {
       position: fixed;
       inset: 0;
@@ -87,21 +78,12 @@
     .boot-scanlines {
       position: absolute;
       inset: 0;
-      background: repeating-linear-gradient(
-        to bottom,
-        transparent 0px,
-        transparent 3px,
-        rgba(255,255,255,0.03) 3px,
-        rgba(255,255,255,0.03) 4px
-      );
+      background: repeating-linear-gradient(to bottom, transparent 0px, transparent 3px, rgba(255,255,255,0.03) 3px, rgba(255,255,255,0.03) 4px);
       animation: vhsroll 6s linear infinite;
       pointer-events: none;
     }
 
-    @keyframes vhsroll {
-      0% { background-position: 0 0; }
-      100% { background-position: 0 400px; }
-    }
+    @keyframes vhsroll { 0%{background-position:0 0} 100%{background-position:0 400px} }
 
     .boot-text {
       position: relative;
@@ -133,7 +115,7 @@
 
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
-    /* ── MAIN WRAPPER ── */
+    /* ══ PAGE ══ */
     .page {
       position: relative;
       z-index: 2;
@@ -145,7 +127,7 @@
       transition: opacity 0.9s ease, transform 0.9s ease;
     }
 
-    /* ── HERO ── */
+    /* ══ HERO ══ */
     .hero {
       text-align: center;
       padding: 3.5rem 1rem 2.5rem;
@@ -155,9 +137,7 @@
       border-bottom: 1px solid var(--border);
     }
 
-    /* horizontal red accent lines */
-    .hero::before,
-    .hero::after {
+    .hero::before, .hero::after {
       content: "";
       position: absolute;
       left: 0; right: 0;
@@ -185,15 +165,10 @@
       color: #fff;
       letter-spacing: 4px;
       line-height: 0.95;
-      /* chromatic aberration / depth effect */
-      text-shadow:
-        -3px -3px 0 var(--red),
-        3px  3px 0 rgba(0,60,255,0.4),
-        0 0 60px var(--red-glow);
+      text-shadow: -3px -3px 0 var(--red), 3px 3px 0 rgba(0,60,255,0.4), 0 0 60px var(--red-glow);
       position: relative;
     }
 
-    /* glitch pseudo-layer */
     .game-title::after {
       content: "SCARY DEPTHS";
       position: absolute;
@@ -205,9 +180,9 @@
     }
 
     @keyframes glitch {
-      0%,89%,100% { transform: none; opacity: 0; }
-      90%          { transform: skewX(-4deg) translateX(-4px); opacity: 0.5; clip-path: inset(10% 0 60% 0); }
-      94%          { transform: skewX(2deg) translateX(3px);  opacity: 0.3; clip-path: inset(55% 0 10% 0); }
+      0%,89%,100% { transform:none; opacity:0; }
+      90%          { transform:skewX(-4deg) translateX(-4px); opacity:0.5; clip-path:inset(10% 0 60% 0); }
+      94%          { transform:skewX(2deg) translateX(3px);  opacity:0.3; clip-path:inset(55% 0 10% 0); }
     }
 
     .tagline {
@@ -222,7 +197,7 @@
       border-right: 3px solid var(--red);
     }
 
-    /* ── SECTION LABEL ── */
+    /* ══ SECTION LABEL ══ */
     .section-label {
       font-size: 0.65rem;
       letter-spacing: 5px;
@@ -241,14 +216,14 @@
       background: linear-gradient(90deg, var(--red), transparent);
     }
 
-    /* ── CARDS GRID ── */
+    /* ══ CARDS ══ */
     .lore-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 1.5px;
       margin: 3rem 0;
       border: 1.5px solid var(--border);
-      background: var(--border); /* gap color = border color */
+      background: var(--border);
     }
 
     .info-card {
@@ -258,7 +233,6 @@
       overflow: hidden;
     }
 
-    /* top accent bar */
     .info-card::before {
       content: "";
       position: absolute;
@@ -278,6 +252,13 @@
       color: var(--red);
       text-transform: uppercase;
       margin-bottom: 0.8rem;
+    }
+
+    .card-icon {
+      width: 36px;
+      height: 36px;
+      margin-bottom: 0.8rem;
+      display: block;
     }
 
     .info-card h3 {
@@ -300,28 +281,30 @@
 
     .info-card li {
       padding: 0.45rem 0;
-      padding-left: 1.2rem;
+      padding-left: 1.4rem;
       position: relative;
       font-size: 0.82rem;
       text-transform: uppercase;
       letter-spacing: 1px;
       color: #888;
       border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     .info-card li:last-child { border-bottom: none; }
 
-    .info-card li::before {
-      content: "–";
+    .info-card li .li-icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
       position: absolute;
       left: 0;
-      color: var(--red);
     }
 
-    /* ── MANIFEST ── */
-    .manifest {
-      margin: 3rem 0;
-    }
+    /* ══ MANIFEST ══ */
+    .manifest { margin: 3rem 0; }
 
     .manifest-body {
       display: grid;
@@ -333,11 +316,8 @@
       position: relative;
     }
 
-    @media (max-width: 700px) {
-      .manifest-body { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 700px) { .manifest-body { grid-template-columns: 1fr; } }
 
-    /* corner ornament */
     .manifest-body::before {
       content: "";
       position: absolute;
@@ -385,7 +365,222 @@
       text-transform: uppercase;
     }
 
-    /* ── RELEASE BAND ── */
+    /* ══ PLATFORMS ══ */
+    .platforms-section { margin: 3rem 0; }
+
+    .platforms-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5px;
+      background: var(--border);
+      border: 1.5px solid var(--border);
+    }
+
+    @media (max-width: 500px) { .platforms-grid { grid-template-columns: 1fr; } }
+
+    .platform-card {
+      background: var(--card-bg);
+      padding: 2rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.2s;
+    }
+
+    .platform-card::before {
+      content: "";
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--red);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s ease;
+    }
+
+    .platform-card:hover { background: #0f0f0f; }
+    .platform-card:hover::before { transform: scaleX(1); }
+
+    .platform-logo {
+      width: 70px;
+      height: 70px;
+      flex-shrink: 0;
+    }
+
+    .platform-info {}
+
+    .platform-name {
+      font-size: 1.1rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--white);
+    }
+
+    .platform-sub {
+      margin-top: 0.3rem;
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      color: var(--mid);
+      text-transform: uppercase;
+    }
+
+    .platform-tag {
+      display: inline-block;
+      margin-top: 0.6rem;
+      font-size: 0.6rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--red);
+      border: 1px solid rgba(255,17,17,0.4);
+      padding: 0.15rem 0.5rem;
+    }
+
+    /* ══ DOWNLOAD ══ */
+    .download-section {
+      margin: 3rem 0;
+      text-align: center;
+      padding: 3rem 2rem;
+      background: rgba(255,17,17,0.04);
+      border: 1px solid rgba(255,17,17,0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .download-section::before {
+      content: "//////////////////////////////////////////////////////////////////////////";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      font-size: 0.6rem;
+      letter-spacing: 1px;
+      color: rgba(255,17,17,0.15);
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .download-label {
+      font-size: 0.65rem;
+      letter-spacing: 6px;
+      color: var(--red);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: var(--red);
+      border: none;
+      padding: 1.1rem 2.8rem;
+      color: #fff;
+      font-family: 'DepthsBlock', monospace;
+      font-size: 1rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      cursor: pointer;
+      transition: background 0.15s, box-shadow 0.15s, transform 0.1s;
+      position: relative;
+    }
+
+    .download-btn:hover {
+      background: #cc0000;
+      box-shadow: 0 0 40px rgba(255,17,17,0.5);
+      transform: translateY(-1px);
+    }
+
+    .download-btn:active { transform: translateY(1px); }
+
+    .download-btn svg { width: 20px; height: 20px; }
+
+    .download-sub {
+      margin-top: 0.8rem;
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      color: #444;
+      text-transform: uppercase;
+    }
+
+    /* ══ MODAL ══ */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 8000;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-backdrop.open { display: flex; }
+
+    .modal-box {
+      background: #080808;
+      border: 2px solid var(--red);
+      box-shadow: 0 0 80px var(--red-glow);
+      padding: 3rem 3.5rem;
+      text-align: center;
+      max-width: 480px;
+      width: 90%;
+      position: relative;
+      animation: modalIn 0.25s ease;
+    }
+
+    @keyframes modalIn {
+      from { transform: scale(0.93); opacity: 0; }
+      to   { transform: scale(1);    opacity: 1; }
+    }
+
+    .modal-icon { width: 52px; height: 52px; margin: 0 auto 1.5rem; display: block; }
+
+    .modal-title {
+      font-size: 1.6rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      color: var(--white);
+      margin-bottom: 0.8rem;
+    }
+
+    .modal-body {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: #888;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+
+    .modal-body span { color: var(--red); }
+
+    .modal-close {
+      display: inline-block;
+      background: transparent;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      padding: 0.7rem 2rem;
+      color: var(--mid);
+      font-family: 'DepthsBlock', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .modal-close:hover { border-color: var(--white); color: var(--white); }
+
+    .modal-corner {
+      position: absolute;
+      width: 18px; height: 18px;
+    }
+    .modal-corner.tl { top: -2px; left: -2px; border-top: 3px solid var(--red); border-left: 3px solid var(--red); }
+    .modal-corner.br { bottom: -2px; right: -2px; border-bottom: 3px solid var(--red); border-right: 3px solid var(--red); }
+
+    /* ══ RELEASE BAND ══ */
     .release-band {
       margin: 3rem 0;
       padding: 2rem;
@@ -393,17 +588,6 @@
       border: 1px solid rgba(255,17,17,0.3);
       text-align: center;
       position: relative;
-      overflow: hidden;
-    }
-
-    .release-band::before {
-      content: "//////////////////////////////////////////////////////////////////////////";
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      font-size: 0.6rem;
-      letter-spacing: 1px;
-      color: rgba(255,17,17,0.2);
-      white-space: nowrap;
       overflow: hidden;
     }
 
@@ -431,7 +615,7 @@
       text-transform: uppercase;
     }
 
-    /* ── FOOTER STRIP ── */
+    /* ══ FOOTER ══ */
     .footer-strip {
       display: grid;
       grid-template-columns: 1fr auto 1fr;
@@ -442,14 +626,7 @@
       border-top: 1px solid var(--border);
     }
 
-    @media (max-width: 600px) {
-      .footer-strip {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-    }
-
-    .studio-block {}
+    @media (max-width: 600px) { .footer-strip { grid-template-columns: 1fr; text-align: center; } }
 
     .crix-name {
       font-size: 1.3rem;
@@ -467,9 +644,7 @@
       text-transform: uppercase;
     }
 
-    /* ── DISCORD BTN ── */
     .discord-area { text-align: right; }
-
     @media (max-width: 600px) { .discord-area { text-align: center; } }
 
     .discord-btn {
@@ -484,14 +659,12 @@
       font-weight: bold;
       text-transform: uppercase;
       letter-spacing: 4px;
-      transition: background 0.15s, color 0.15s, border-color 0.15s, box-shadow 0.15s;
-      position: relative;
+      transition: background 0.15s, color 0.15s, box-shadow 0.15s;
     }
 
     .discord-btn:hover {
       background: var(--white);
       color: #000;
-      border-color: var(--white);
       box-shadow: 0 0 30px rgba(255,255,255,0.2);
     }
 
@@ -506,17 +679,7 @@
 
     @media (max-width: 600px) { .discord-sub { text-align: center; } }
 
-    /* ── DIVIDER ── */
-    .divider {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border), transparent);
-      margin: 0;
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 800px) {
-      .page { padding: 2rem 1.2rem 4rem; }
-    }
+    @media (max-width: 800px) { .page { padding: 2rem 1.2rem 4rem; } }
   </style>
 </head>
 <body>
@@ -531,50 +694,132 @@
     <div class="boot-sub">[ TAPE CORRUPTION DETECTED ]</div>
   </div>
 
-  <!-- MAIN -->
+  <!-- NOT AVAILABLE MODAL -->
+  <div id="dlModal" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <div class="modal-corner tl"></div>
+      <div class="modal-corner br"></div>
+      <!-- custom "locked" emoji SVG -->
+      <svg class="modal-icon" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="22" width="32" height="24" rx="2" fill="#1a0000" stroke="#ff1111" stroke-width="2"/>
+        <path d="M17 22V16a9 9 0 0 1 18 0v6" stroke="#ff1111" stroke-width="2.5" stroke-linecap="square"/>
+        <rect x="22" y="30" width="8" height="8" rx="1" fill="#ff1111" opacity="0.9"/>
+        <line x1="26" y1="30" x2="26" y2="38" stroke="#ff1111" stroke-width="1.5"/>
+        <!-- glitch bars -->
+        <rect x="10" y="28" width="5" height="1.5" fill="#ff1111" opacity="0.3"/>
+        <rect x="37" y="34" width="5" height="1.5" fill="#ff1111" opacity="0.2"/>
+      </svg>
+      <div class="modal-title">Not Available Yet</div>
+      <div class="modal-body">
+        <span>SCARY DEPTHS.exe</span> is still being rendered.<br><br>
+        The signal is not yet ready for broadcast.<br>
+        Stay tuned to the frequency.
+      </div>
+      <button class="modal-close" id="modalClose">[ Understood ]</button>
+    </div>
+  </div>
+
+  <!-- MAIN PAGE -->
   <div id="mainContent" class="page">
 
     <!-- HERO -->
     <header class="hero">
-      <div class="eyebrow">Crix Studios · Analog Horror</div>
+      <div class="eyebrow">Crix Studios · Analog Horror · VR Experience</div>
       <div class="game-title">SCARY DEPTHS</div>
       <div class="tagline">✦ ANALOG NIGHTMARE · DO NOT RESIST ✦</div>
     </header>
 
-    <!-- CARDS -->
+    <!-- INFO CARDS -->
     <div class="section-label">Signal Fragments</div>
     <div class="lore-grid">
 
       <div class="info-card">
         <div class="card-num">01 / THE DESCENT</div>
+        <!-- custom "deep sea signal" emoji: sonar wave -->
+        <svg class="card-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="18" cy="18" r="4" fill="#ff1111"/>
+          <path d="M18 18 L32 10" stroke="#ff1111" stroke-width="1.5" opacity="0.8"/>
+          <circle cx="18" cy="18" r="9"  stroke="#ff1111" stroke-width="1" opacity="0.5" stroke-dasharray="2 3"/>
+          <circle cx="18" cy="18" r="15" stroke="#ff1111" stroke-width="1" opacity="0.25" stroke-dasharray="2 4"/>
+        </svg>
         <h3>A Forbidden Frequency</h3>
         <p>A VHS signal broadcasting from the Mariana Trench. Something ancient loops on tape. Descend into procedural abysses where reality glitches — and your own psyche becomes the threat.</p>
         <ul>
-          <li>Procedural oceanic horror</li>
-          <li>CRT filter / VHS corruption</li>
-          <li>Permanent psychological scars</li>
+          <li>
+            <!-- wave/depth icon -->
+            <svg class="li-icon" viewBox="0 0 18 18" fill="none"><path d="M1 9 Q4.5 4 9 9 Q13.5 14 17 9" stroke="#ff1111" stroke-width="1.5" fill="none"/></svg>
+            Procedural oceanic horror
+          </li>
+          <li>
+            <svg class="li-icon" viewBox="0 0 18 18" fill="none"><rect x="2" y="4" width="14" height="10" rx="1" stroke="#ff1111" stroke-width="1.2"/><line x1="5" y1="4" x2="5" y2="14" stroke="#ff1111" stroke-width="0.8" opacity="0.5"/><line x1="9" y1="4" x2="9" y2="14" stroke="#ff1111" stroke-width="0.8" opacity="0.5"/><line x1="13" y1="4" x2="13" y2="14" stroke="#ff1111" stroke-width="0.8" opacity="0.5"/></svg>
+            CRT filter / VHS corruption
+          </li>
+          <li>
+            <svg class="li-icon" viewBox="0 0 18 18" fill="none"><path d="M9 2 L11 7 L17 7 L12.5 11 L14.5 17 L9 13.5 L3.5 17 L5.5 11 L1 7 L7 7 Z" stroke="#ff1111" stroke-width="1.2" fill="none"/></svg>
+            Permanent psychological scars
+          </li>
         </ul>
       </div>
 
       <div class="info-card">
         <div class="card-num">02 / GAMEPLAY</div>
+        <!-- custom "tape reel" emoji -->
+        <svg class="card-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="8" width="28" height="20" rx="2" stroke="#ff1111" stroke-width="1.5"/>
+          <circle cx="12" cy="18" r="5" stroke="#ff1111" stroke-width="1.2"/>
+          <circle cx="12" cy="18" r="2" fill="#ff1111" opacity="0.7"/>
+          <circle cx="24" cy="18" r="5" stroke="#ff1111" stroke-width="1.2"/>
+          <circle cx="24" cy="18" r="2" fill="#ff1111" opacity="0.7"/>
+          <line x1="17" y1="18" x2="19" y2="18" stroke="#ff1111" stroke-width="1.5"/>
+          <rect x="14" y="24" width="8" height="4" rx="0.5" fill="#ff1111" opacity="0.4"/>
+        </svg>
         <h3>No HUD. No Safe Zones.</h3>
         <p>Claustrophobic trenches. Analog puzzles. Entities that adapt to your fear. The tape rewinds every time you die — but the nightmare remembers everything.</p>
         <ul>
-          <li>First-person immersion</li>
-          <li>Dynamic audio distortion</li>
-          <li>Permadeath with evolving static</li>
+          <li>
+            <!-- VR headset mini icon -->
+            <svg class="li-icon" viewBox="0 0 18 18" fill="none"><rect x="2" y="6" width="14" height="8" rx="2" stroke="#ff1111" stroke-width="1.2"/><circle cx="7" cy="10" r="2" stroke="#ff1111" stroke-width="1"/><circle cx="11" cy="10" r="2" stroke="#ff1111" stroke-width="1"/><line x1="9" y1="10" x2="9" y2="10" stroke="#ff1111" stroke-width="1.5"/></svg>
+            First-person VR immersion
+          </li>
+          <li>
+            <svg class="li-icon" viewBox="0 0 18 18" fill="none"><path d="M3 9 Q5 5 9 9 Q13 13 15 9" stroke="#ff1111" stroke-width="1.5" fill="none"/><circle cx="3" cy="9" r="1.5" fill="#ff1111"/><circle cx="15" cy="9" r="1.5" fill="#ff1111"/></svg>
+            Dynamic audio distortion
+          </li>
+          <li>
+            <svg class="li-icon" viewBox="0 0 18 18" fill="none"><polygon points="9,2 16,16 2,16" stroke="#ff1111" stroke-width="1.2" fill="none"/><line x1="9" y1="8" x2="9" y2="12" stroke="#ff1111" stroke-width="1.5"/><circle cx="9" cy="14" r="1" fill="#ff1111"/></svg>
+            Permadeath with evolving static
+          </li>
         </ul>
       </div>
 
       <div class="info-card">
         <div class="card-num">03 / THE BROADCASTER</div>
+        <!-- custom "eye in static" emoji -->
+        <svg class="card-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="18" cy="18" rx="14" ry="8" stroke="#ff1111" stroke-width="1.5"/>
+          <circle cx="18" cy="18" r="5" fill="#1a0000" stroke="#ff1111" stroke-width="1.2"/>
+          <circle cx="18" cy="18" r="2.5" fill="#ff1111"/>
+          <circle cx="19.5" cy="16.5" r="0.8" fill="#fff" opacity="0.6"/>
+          <!-- static flicker lines -->
+          <line x1="3"  y1="14" x2="7"  y2="14" stroke="#ff1111" stroke-width="0.8" opacity="0.4"/>
+          <line x1="29" y1="22" x2="33" y2="22" stroke="#ff1111" stroke-width="0.8" opacity="0.4"/>
+          <line x1="4"  y1="20" x2="8"  y2="20" stroke="#ff1111" stroke-width="0.8" opacity="0.3"/>
+        </svg>
         <h3>It Learns</h3>
         <p>Known only as THE BROADCASTER. It mimics voices from your past, warps the environment, and manipulates VHS artifacts. The deeper you go, the more it knows. There is no victory — only survival.</p>
         <ul>
-          <li>Adaptive AI horror</li>
-          <li>Glitch-based encounters</li>
-          <li>Multiple endings (all tragic)</li>
+          <li>
+            <svg class="li-icon" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6" stroke="#ff1111" stroke-width="1.2"/><path d="M6 9 Q9 5 12 9 Q9 13 6 9Z" fill="#ff1111" opacity="0.7"/></svg>
+            Adaptive AI horror
+          </li>
+          <li>
+            <svg class="li-icon" viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="14" height="14" stroke="#ff1111" stroke-width="1" opacity="0.3"/><rect x="4" y="7" width="10" height="2" fill="#ff1111" opacity="0.6"/><rect x="2" y="11" width="6" height="2" fill="#ff1111" opacity="0.4"/><rect x="10" y="4" width="6" height="2" fill="#ff1111" opacity="0.4"/></svg>
+            Glitch-based encounters
+          </li>
+          <li>
+            <svg class="li-icon" viewBox="0 0 18 18" fill="none"><path d="M9 2 L16 7 L13 16 L5 16 L2 7 Z" stroke="#ff1111" stroke-width="1.2" fill="none"/><path d="M9 6 L9 12 M6 9 L12 9" stroke="#ff1111" stroke-width="1.5"/></svg>
+            Multiple endings (all tragic)
+          </li>
         </ul>
       </div>
 
@@ -584,7 +829,7 @@
     <div class="manifest">
       <div class="section-label">The VHS Manifest</div>
       <div class="manifest-body">
-        <p>SCARY DEPTHS is a first-person analog horror experience blending retro VHS aesthetics with psychological dread. Set in an abandoned underwater research station, you uncover corrupted tapes revealing a government experiment gone wrong. The year is 1987. Your only equipment: a failing sonar, a portable CRT monitor, a voice recorder catching whispers that shouldn't exist.</p>
+        <p>SCARY DEPTHS is a first-person VR analog horror experience blending retro VHS aesthetics with psychological dread. Set in an abandoned underwater research station, you uncover corrupted tapes revealing a government experiment gone wrong. The year is 1987. Your only equipment: a failing sonar, a portable CRT monitor, a voice recorder catching whispers that shouldn't exist.</p>
         <p>Each session generates a unique depth layer — rooms shift, hallways stretch, the same looped broadcast hides messages meant to drive you mad. No combat. Only hiding, environmental puzzles, and managing your sanity by avoiding prolonged exposure to static entities. Every creak and reversed voice clue leads closer to the truth — or to your second death.</p>
         <div class="manifest-quote">
           I saw the tape. It showed me things. The depths have eyes. And they are laughing.
@@ -593,7 +838,99 @@
       </div>
     </div>
 
-    <!-- RELEASE -->
+    <!-- PLATFORMS -->
+    <div class="platforms-section">
+      <div class="section-label">Available On</div>
+      <div class="platforms-grid">
+
+        <!-- META QUEST 3 / 3S -->
+        <div class="platform-card">
+          <!-- custom Meta Quest logo SVG -->
+          <svg class="platform-logo" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- headset visor shape -->
+            <rect x="8" y="20" width="54" height="30" rx="6" fill="#0d0d0d" stroke="#ff1111" stroke-width="1.5"/>
+            <!-- left lens -->
+            <ellipse cx="24" cy="35" rx="10" ry="11" fill="#1a0000" stroke="#ff1111" stroke-width="1.2"/>
+            <ellipse cx="24" cy="35" rx="6" ry="7" fill="#ff1111" opacity="0.12"/>
+            <ellipse cx="24" cy="35" rx="3" ry="3.5" fill="#ff1111" opacity="0.5"/>
+            <!-- right lens -->
+            <ellipse cx="46" cy="35" rx="10" ry="11" fill="#1a0000" stroke="#ff1111" stroke-width="1.2"/>
+            <ellipse cx="46" cy="35" rx="6" ry="7" fill="#ff1111" opacity="0.12"/>
+            <ellipse cx="46" cy="35" rx="3" ry="3.5" fill="#ff1111" opacity="0.5"/>
+            <!-- nose bridge -->
+            <rect x="32" y="31" width="6" height="8" rx="1" fill="#0d0d0d" stroke="#ff1111" stroke-width="0.8"/>
+            <!-- top strap line -->
+            <line x1="20" y1="20" x2="20" y2="14" stroke="#ff1111" stroke-width="1.2" opacity="0.5"/>
+            <line x1="50" y1="20" x2="50" y2="14" stroke="#ff1111" stroke-width="1.2" opacity="0.5"/>
+            <line x1="20" y1="14" x2="50" y2="14" stroke="#ff1111" stroke-width="1.2" opacity="0.5"/>
+            <!-- scan line on visor -->
+            <line x1="8" y1="33" x2="62" y2="33" stroke="#ff1111" stroke-width="0.5" opacity="0.2"/>
+            <!-- VR text badge -->
+            <rect x="27" y="55" width="16" height="8" rx="1" fill="#ff1111" opacity="0.15" stroke="#ff1111" stroke-width="0.8"/>
+            <text x="35" y="62" font-family="monospace" font-size="5" fill="#ff1111" text-anchor="middle" letter-spacing="1">VR</text>
+          </svg>
+          <div class="platform-info">
+            <div class="platform-name">Meta Quest 3 / 3S</div>
+            <div class="platform-sub">Virtual Reality · Standalone + PC Link</div>
+            <div class="platform-tag">VR Required</div>
+          </div>
+        </div>
+
+        <!-- PC -->
+        <div class="platform-card">
+          <!-- custom PC logo SVG with CRT/horror feel -->
+          <svg class="platform-logo" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- monitor -->
+            <rect x="10" y="10" width="50" height="36" rx="2" fill="#0d0d0d" stroke="#ff1111" stroke-width="1.5"/>
+            <!-- screen inner -->
+            <rect x="14" y="14" width="42" height="28" rx="1" fill="#0a0000"/>
+            <!-- scanlines on screen -->
+            <line x1="14" y1="18" x2="56" y2="18" stroke="#ff1111" stroke-width="0.5" opacity="0.2"/>
+            <line x1="14" y1="22" x2="56" y2="22" stroke="#ff1111" stroke-width="0.5" opacity="0.2"/>
+            <line x1="14" y1="26" x2="56" y2="26" stroke="#ff1111" stroke-width="0.5" opacity="0.2"/>
+            <line x1="14" y1="30" x2="56" y2="30" stroke="#ff1111" stroke-width="0.5" opacity="0.2"/>
+            <line x1="14" y1="34" x2="56" y2="34" stroke="#ff1111" stroke-width="0.5" opacity="0.2"/>
+            <line x1="14" y1="38" x2="56" y2="38" stroke="#ff1111" stroke-width="0.5" opacity="0.2"/>
+            <!-- glitch red bar on screen -->
+            <rect x="14" y="24" width="42" height="3" fill="#ff1111" opacity="0.07"/>
+            <!-- SD cursor blink -->
+            <rect x="18" y="17" width="8" height="2" fill="#ff1111" opacity="0.7"/>
+            <!-- stand neck -->
+            <rect x="31" y="46" width="8" height="8" rx="0" fill="#0d0d0d" stroke="#ff1111" stroke-width="1"/>
+            <!-- stand base -->
+            <rect x="22" y="54" width="26" height="5" rx="1" fill="#0d0d0d" stroke="#ff1111" stroke-width="1.2"/>
+            <!-- power dot -->
+            <circle cx="35" cy="43" r="1.5" fill="#ff1111" opacity="0.6"/>
+            <!-- VR Steam badge -->
+            <rect x="27" y="58" width="16" height="8" rx="1" fill="#ff1111" opacity="0.15" stroke="#ff1111" stroke-width="0.8"/>
+            <text x="35" y="65" font-family="monospace" font-size="5" fill="#ff1111" text-anchor="middle" letter-spacing="0.5">PC VR</text>
+          </svg>
+          <div class="platform-info">
+            <div class="platform-name">PC</div>
+            <div class="platform-sub">Windows 10/11 · VR Headset Required</div>
+            <div class="platform-tag">SteamVR Compatible</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- DOWNLOAD -->
+    <div class="download-section">
+      <div class="download-label">Download the Game</div>
+      <button class="download-btn" id="dlBtn">
+        <!-- custom download arrow emoji -->
+        <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="10" y1="2" x2="10" y2="13" stroke="#fff" stroke-width="2" stroke-linecap="square"/>
+          <polyline points="5,9 10,14 15,9" stroke="#fff" stroke-width="2" stroke-linecap="square" fill="none"/>
+          <line x1="3" y1="17" x2="17" y2="17" stroke="#fff" stroke-width="2" stroke-linecap="square"/>
+        </svg>
+        SCARY DEPTHS.exe
+      </button>
+      <div class="download-sub">PC · Windows 10/11 · VR Required</div>
+    </div>
+
+    <!-- RELEASE DATE -->
     <div class="release-band">
       <div class="release-label">Release Date</div>
       <div class="release-value">Not Yet Set</div>
@@ -607,54 +944,104 @@
         <div class="studio-sub">Developer of Analog Horror · Since 2023</div>
       </div>
 
-      <div class="divider" style="width:1px;height:50px;background:var(--border);margin:0;"></div>
+      <div style="width:1px;height:50px;background:var(--border);"></div>
 
       <div class="discord-area">
-        <a href="https://discord.gg/RvqVEEHV6B" target="_blank" rel="noopener noreferrer" class="discord-btn">
+        <a href="https://discord.gg/RvqVEEHV6B" target="_blank" rel="noopener noreferrer" class="discord-btn" id="discordBtn">
           Join The Abyss
         </a>
         <div class="discord-sub">Dev logs · Exclusive tapes · Community theories</div>
       </div>
     </footer>
 
-  </div>
+  </div><!-- /page -->
 
-  <audio id="depthSignal" preload="auto" loop style="display:none;">
-    <source src="vhssound.mp3" type="audio/mpeg">
-  </audio>
+  <!-- AUDIO -->
+  <audio id="injectAudio"  preload="auto" style="display:none;"><source src="inject.mp3"  type="audio/mpeg"></audio>
+  <audio id="depthSignal" preload="auto" loop style="display:none;"><source src="vhssound.mp3" type="audio/mpeg"></audio>
+  <audio id="hoverSnd"    preload="auto" style="display:none;"><source src="hover.mp3"  type="audio/mpeg"></audio>
+  <audio id="clickSnd"    preload="auto" style="display:none;"><source src="click.mp3"  type="audio/mpeg"></audio>
 
   <script>
-    (function () {
-      const boot = document.getElementById('bootOverlay');
-      const main = document.getElementById('mainContent');
+  (function () {
 
-      if (boot && main) {
-        setTimeout(() => {
-          boot.style.transition = 'opacity 1.2s ease';
-          boot.style.opacity = '0';
-          main.style.opacity = '1';
-          main.style.transform = 'translateY(0)';
-          setTimeout(() => boot.remove(), 1300);
-        }, 2400);
-      } else if (main) {
-        main.style.opacity = '1';
-        main.style.transform = 'translateY(0)';
-      }
+    /* ─── AUDIO HELPERS ─── */
+    const inject   = document.getElementById('injectAudio');
+    const ambient  = document.getElementById('depthSignal');
+    const hoverSnd = document.getElementById('hoverSnd');
+    const clickSnd = document.getElementById('clickSnd');
 
-      const audio = document.getElementById('depthSignal');
-      if (audio) {
-        audio.volume = 1.0;
-        let active = false;
-        const play = () => audio.play().then(() => { active = true; }).catch(() => {});
-        play();
-        const unlock = () => { if (!active) play(); else if (audio.paused) audio.play().catch(() => {}); };
-        document.body.addEventListener('click', unlock);
-        document.body.addEventListener('touchstart', unlock);
-        document.body.addEventListener('keydown', unlock);
-        document.addEventListener('visibilitychange', () => { if (!document.hidden) unlock(); });
-        setInterval(() => { if (audio.paused && active) audio.play().catch(() => {}); }, 7000);
-      }
-    })();
+    function playOnce(el) {
+      if (!el) return;
+      el.currentTime = 0;
+      el.play().catch(() => {});
+    }
+
+    /* ─── BOOT + INJECT.MP3 ─── */
+    const boot = document.getElementById('bootOverlay');
+    const main = document.getElementById('mainContent');
+
+    // Play inject.mp3 immediately on load
+    playOnce(inject);
+
+    if (boot && main) {
+      setTimeout(() => {
+        boot.style.transition = 'opacity 1.2s ease';
+        boot.style.opacity    = '0';
+        main.style.opacity    = '1';
+        main.style.transform  = 'translateY(0)';
+        setTimeout(() => boot.remove(), 1300);
+      }, 2400);
+    } else if (main) {
+      main.style.opacity   = '1';
+      main.style.transform = 'translateY(0)';
+    }
+
+    /* ─── AMBIENT LOOP (vhssound.mp3) ─── */
+    let ambientActive = false;
+    const startAmbient = () => ambient && ambient.play().then(() => { ambientActive = true; }).catch(() => {});
+    startAmbient();
+
+    const unlockAmbient = () => {
+      if (!ambientActive) startAmbient();
+      else if (ambient && ambient.paused) ambient.play().catch(() => {});
+    };
+    document.body.addEventListener('click',      unlockAmbient);
+    document.body.addEventListener('touchstart', unlockAmbient);
+    document.body.addEventListener('keydown',    unlockAmbient);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) unlockAmbient(); });
+    setInterval(() => { if (ambient && ambient.paused && ambientActive) ambient.play().catch(() => {}); }, 7000);
+
+    /* ─── HOVER SOUND on interactive elements ─── */
+    const hoverTargets = document.querySelectorAll(
+      '.info-card, .platform-card, .download-btn, .discord-btn, .modal-close, a'
+    );
+    hoverTargets.forEach(el => {
+      el.addEventListener('mouseenter', () => playOnce(hoverSnd));
+    });
+
+    /* ─── CLICK SOUND on all buttons & links ─── */
+    document.body.addEventListener('click', (e) => {
+      const t = e.target.closest('button, a, .info-card, .platform-card');
+      if (t) playOnce(clickSnd);
+    });
+
+    /* ─── DOWNLOAD MODAL ─── */
+    const dlBtn    = document.getElementById('dlBtn');
+    const modal    = document.getElementById('dlModal');
+    const modalClose = document.getElementById('modalClose');
+
+    dlBtn && dlBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      modal.classList.add('open');
+    });
+
+    const closeModal = () => modal.classList.remove('open');
+    modalClose && modalClose.addEventListener('click', closeModal);
+    modal && modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+  })();
   </script>
 </body>
 </html>
