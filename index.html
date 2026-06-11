@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>SCARY DEPTHS — CRIX STUDIOS | Analog Horror Experience</title>
+  <title>SCARY DEPTHS — CRIX STUDIOS</title>
   <!-- Favicon (PNG) -->
   <link rel="icon" type="image/png" href="favicon.png">
-  <!-- Custom brutalist/blocky font: font.ttf -->
+  <!-- Custom blocky/brutalist font: font.ttf -->
   <style>
-    /* ----- CUSTOM FONT (heavy, blocky, horror) ----- */
+    /* ----- FONT FACE (distorted, heavy, horror) ----- */
     @font-face {
       font-family: 'DepthsBlock';
       src: url('font.ttf') format('truetype');
@@ -17,7 +17,6 @@
       font-display: swap;
     }
 
-    /* GLOBAL RESET — BLACK & WHITE / BLOCKY / MASSIVE STRUCTURE */
     * {
       margin: 0;
       padding: 0;
@@ -41,7 +40,7 @@
       position: relative;
     }
 
-    /* Dark gritty overlay to keep text readable but preserve VHS grain */
+    /* Dark gritty overlay to keep text readable, VHS grain intact */
     body::before {
       content: "";
       position: fixed;
@@ -54,21 +53,64 @@
       z-index: 0;
     }
 
-    /* BLOCKY MAIN CONTAINER — massive, brutalist, sharp edges */
+    /* BOOT SEQUENCE OVERLAY (found_footage_introduction.mp3 style) */
+    .boot-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000000;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      font-family: 'DepthsBlock', monospace;
+      transition: opacity 1.2s ease;
+      opacity: 1;
+      pointer-events: none;
+      backdrop-filter: blur(8px);
+    }
+
+    .boot-text {
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: clamp(1.2rem, 6vw, 2.2rem);
+      color: #ffffff;
+      background: #000000aa;
+      padding: 1.5rem 2.5rem;
+      border: 2px solid #ff1111;
+      box-shadow: 0 0 40px rgba(255,0,0,0.3);
+      white-space: pre-line;
+      line-height: 1.4;
+    }
+
+    .boot-sub {
+      margin-top: 1.2rem;
+      font-size: 0.8rem;
+      color: #aaa;
+      letter-spacing: 2px;
+    }
+
+    /* Main brutal container (hidden initially, fade in) */
     .brutal-container {
       position: relative;
       z-index: 2;
       width: 95%;
       max-width: 1300px;
       margin: 3rem auto;
-      background: rgba(0, 0, 0, 0.85);
+      background: rgba(0, 0, 0, 0.88);
       border: 4px solid #ffffff;
-      box-shadow: 20px 20px 0 rgba(255, 255, 255, 0.15), inset 0 0 30px rgba(255,0,0,0.2);
+      box-shadow: 20px 20px 0 rgba(255, 255, 255, 0.1), inset 0 0 30px rgba(255,0,0,0.2);
       padding: 2.5rem 3rem;
-      transition: all 0.2s;
+      transition: all 0.3s;
+      opacity: 0;
+      transform: scale(0.98);
     }
 
-    /* blockier elements — all sections with hard borders */
+    /* blocky elements */
     .game-title-block {
       text-align: center;
       border-bottom: 6px solid #ff1111;
@@ -77,7 +119,6 @@
       margin-bottom: 2rem;
     }
 
-    /* SCARY DEPTHS — ALL CAPS, RED, EXTRA BOLD, MASSIVE */
     .game-title {
       font-family: 'DepthsBlock', monospace;
       font-size: clamp(4rem, 14vw, 8rem);
@@ -85,12 +126,10 @@
       text-transform: uppercase;
       color: #ff0000;
       letter-spacing: 8px;
-      text-shadow: 6px 6px 0 #4a0000, 0 0 10px rgba(255,0,0,0.5);
-      word-break: keep-all;
+      text-shadow: 6px 6px 0 #4a0000, 0 0 12px rgba(255,0,0,0.6);
       line-height: 1.1;
     }
 
-    /* Subtitle / warning */
     .warning-strip {
       background: #111;
       display: inline-block;
@@ -105,7 +144,7 @@
       color: #ccc;
     }
 
-    /* LORE SECTION — blocky cards, more details about the game */
+    /* LORE GRID */
     .lore-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -117,7 +156,6 @@
       background: #0a0a0a;
       border: 2px solid #ffffff;
       padding: 1.8rem 1.5rem;
-      transition: all 0.2s linear;
       box-shadow: 8px 8px 0 rgba(255,255,255,0.1);
     }
 
@@ -137,7 +175,6 @@
       line-height: 1.5;
       margin-bottom: 1rem;
       color: #dddddd;
-      font-weight: 500;
     }
 
     .info-card ul {
@@ -159,7 +196,7 @@
       color: #ff4444;
     }
 
-    /* DEEP DESCRIPTION — bigger block talking about the game */
+    /* DEEP DESCRIPTION */
     .deep-description {
       background: #030303;
       border: 3px solid #ffffff;
@@ -173,8 +210,8 @@
       color: #ff1111;
       margin-bottom: 1rem;
       letter-spacing: 3px;
-      display: inline-block;
       border-bottom: 3px solid white;
+      display: inline-block;
     }
 
     .deep-description p {
@@ -183,7 +220,7 @@
       margin: 1.2rem 0;
     }
 
-    .deep-description .highlight {
+    .highlight {
       background: #1a1a1a;
       border-left: 6px solid #ff0000;
       padding: 1rem;
@@ -192,7 +229,26 @@
       margin-top: 1.2rem;
     }
 
-    /* CRIX STUDIOS — PURE WHITE, bold and blocky */
+    /* Release info: NOT SET */
+    .release-info {
+      margin: 1.8rem 0;
+      background: #00000099;
+      padding: 1rem;
+      border: 2px dashed #ffffff;
+      text-align: center;
+    }
+    .release-badge {
+      font-size: 1.6rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: #ff8888;
+    }
+    .release-note {
+      font-size: 1rem;
+      letter-spacing: 1.5px;
+    }
+
+    /* CRIX STUDIOS white */
     .studio-block {
       text-align: center;
       margin: 2rem 0 1rem;
@@ -208,10 +264,9 @@
       padding: 0.5rem 2rem;
       border: 3px solid white;
       box-shadow: 0 0 0 2px black, 0 0 0 4px white;
-      backdrop-filter: blur(2px);
     }
 
-    /* DISCORD INVITE — massive, unmissable, blocky */
+    /* DISCORD */
     .discord-area {
       text-align: center;
       margin: 2rem 0 1rem;
@@ -238,23 +293,10 @@
       background: #ffffff;
       color: #000000;
       border-color: #ff0000;
-      box-shadow: 0 0 20px rgba(255,0,0,0.8);
       transform: scale(0.98);
     }
 
-    /* footer note (unmutable warning) */
-    .sound-warning {
-      margin-top: 2rem;
-      text-align: center;
-      font-size: 0.75rem;
-      color: #aaa;
-      text-transform: uppercase;
-      border-top: 1px solid rgba(255,255,255,0.3);
-      padding-top: 1rem;
-      letter-spacing: 1.5px;
-    }
-
-    /* responsive blocky adjustments */
+    /* responsive */
     @media (max-width: 800px) {
       .brutal-container {
         padding: 1.5rem;
@@ -270,25 +312,32 @@
       .deep-description p {
         font-size: 1rem;
       }
-      .info-card h3 {
-        font-size: 1.4rem;
-      }
     }
   </style>
 </head>
 <body>
-  <div class="brutal-container">
-    <!-- MASSIVE TITLE SECTION -->
+
+  <!-- BOOT SEQUENCE: "found_footage_introduction.mp3" style message -->
+  <div id="bootOverlay" class="boot-overlay">
+    <div class="boot-text">
+      ⚡ FOUND_FOOTAGE_INTRODUCTION.MP3 ⚡<br>
+      <span style="font-size: 0.8rem; letter-spacing: 2px;">LOADING ANALOG SIGNAL...</span>
+    </div>
+    <div class="boot-sub">[ TAPE CORRUPTION DETECTED ]</div>
+  </div>
+
+  <!-- MAIN CONTENT (initially hidden) -->
+  <div id="mainContent" class="brutal-container">
     <div class="game-title-block">
       <div class="game-title">SCARY DEPTHS</div>
       <div class="warning-strip">✦ ANALOG NIGHTMARE · DO NOT RESIST ✦</div>
     </div>
 
-    <!-- LORE GRID: talks more about the game — mechanics, story, setting -->
+    <!-- LORE / GAMEPLAY DETAILS (more info about the game) -->
     <div class="lore-grid">
       <div class="info-card">
         <h3>⚠ THE DESCENT</h3>
-        <p>You are a deep-sea scavenger who discovers a forbidden VHS signal from the Mariana Trench. Something ancient broadcasts on loop. Descend into procedural abysses where reality glitches, and your own psyche becomes the enemy.</p>
+        <p>You discover a forbidden VHS signal from the Mariana Trench. Something ancient broadcasts on loop. Descend into procedural abysses where reality glitches, and your own psyche becomes the enemy. No two expeditions are the same.</p>
         <ul>
           <li>Procedural oceanic horror</li>
           <li>CRT filter / VHS corruption</li>
@@ -305,168 +354,176 @@
         </ul>
       </div>
       <div class="info-card">
-        <h3>🌀 THE ENTITY</h3>
-        <p>Known only as "THE BROADCASTER". It mimics voices from your past, manipulates VHS artifacts, and corrupts save files. The deeper you go, the more it learns. There is no victory — only survival.</p>
+        <h3>🌀 THE BROADCASTER</h3>
+        <p>Known only as "THE BROADCASTER". It mimics voices from your past, manipulates VHS artifacts, and warps the environment. The deeper you go, the more it learns. There is no victory — only survival.</p>
         <ul>
           <li>Adaptive AI horror</li>
-          <li>Glitch-based jumpscares</li>
+          <li>Glitch-based encounters</li>
           <li>Multiple endings (all tragic)</li>
         </ul>
       </div>
     </div>
 
-    <!-- DEEPER DESCRIPTION — MORE LORE AND TALK ABOUT THE GAME EXTENSIVELY -->
+    <!-- DEEP DESCRIPTION: more talk about game lore -->
     <div class="deep-description">
       <h2>⟡ THE VHS MANIFEST ⟡</h2>
       <p>SCARY DEPTHS is a first-person analog horror experience that blends retro VHS aesthetics with psychological dread. Set in an abandoned underwater research station, you uncover a series of corrupted tapes that reveal a government experiment gone wrong. The year is 1987. Your only equipment: a failing sonar, a portable CRT monitor, and a voice recorder that catches whispers that shouldn't exist.</p>
-      <p>Each session generates a unique "depth layer" — rooms shift, hallways stretch, and the same looped broadcast from CRIX INDUSTRIES hides messages meant to drive you mad. The game features no combat; instead, you must hide, solve environmental puzzles, and manage your sanity by avoiding prolonged eye contact with the static entities. The audio design is crucial: every creak, distorted melody, and reversed voice clue leads you closer to the truth — or to your second death.</p>
+      <p>Each session generates a unique "depth layer" — rooms shift, hallways stretch, and the same looped broadcast hides messages meant to drive you mad. The game features no combat; instead, you must hide, solve environmental puzzles, and manage your sanity by avoiding prolonged exposure to static entities. The audio design is crucial: every creak, distorted melody, and reversed voice clue leads you closer to the truth — or to your second death.</p>
       <div class="highlight">
         🎞️ "I saw the tape. It showed me things. The depths have eyes. And they are laughing." — recovered log #42
       </div>
-      <p style="margin-top: 1rem;">The game also features a unique "replay corruption" system: each time you restart, the VHS glitches differently, new rooms emerge, previous safe spots become hazards. CRIX STUDIOS has designed an audio-driven world where the vhssound.mp3 becomes your only companion — a haunting drone that never ceases, reacting to your proximity to the entity. No mute. No escape.</p>
+      <p style="margin-top: 1rem;">The game also features a unique "replay corruption" system: each time you restart, the VHS glitches differently, new rooms emerge, previous safe spots become hazards. CRIX STUDIOS has designed an audio-driven world where the signal becomes your only companion — a haunting drone that reacts to your proximity to the entity.</p>
     </div>
 
-    <!-- EVEN MORE GAME DETAILS: BLOCKY LIST -->
-    <div style="display: flex; flex-wrap: wrap; gap: 1.2rem; justify-content: space-between; margin: 1.5rem 0; border: 2px dashed #444; padding: 1.5rem; background: #00000070;">
-      <div style="flex:1; min-width: 180px;">
-        <h3 style="color:#ff5555; font-size: 1.3rem; letter-spacing: 2px;">📟 RELEASE</h3>
-        <p style="font-weight: bold;">Q4 2026 · PC / MAC<br>DEMO: 2025 HALLOWEEN</p>
-      </div>
-      <div style="flex:1; min-width: 180px;">
-        <h3 style="color:#ff5555; font-size: 1.3rem;">🎧 SOUND PROFILE</h3>
-        <p>Eerie synthesized drones · real magnetic tape hiss · binaural whispers · unmutable horror-core soundtrack</p>
-      </div>
-      <div style="flex:1; min-width: 180px;">
-        <h3 style="color:#ff5555; font-size: 1.3rem;">💀 CONTENT WARNING</h3>
-        <p>Intense psychological horror, flashing static, body horror references, permanent audio immersion. Not recommended for photosensitive individuals.</p>
-      </div>
+    <!-- RELEASE DATE: NOT SET (explicit) -->
+    <div class="release-info">
+      <div class="release-badge">⚡ RELEASE DATE ⚡</div>
+      <div class="release-note">NOT SET — THE TAPES ARE STILL RENDERING. STAY TUNED TO THE FREQUENCY.</div>
     </div>
 
-    <!-- CRIX STUDIOS (WHITE, BLOCKY) -->
+    <!-- CRIX STUDIOS (PURE WHITE) -->
     <div class="studio-block">
       <div class="crix-name">CRIX STUDIOS</div>
       <p style="margin-top: 0.8rem; font-size: 0.8rem; letter-spacing: 2px;">DEVELOPER OF ANALOG HORROR · SINCE 2023</p>
     </div>
 
-    <!-- DISCORD INVITE LINK (exact URL given) -->
+    <!-- DISCORD INVITE -->
     <div class="discord-area">
       <a href="https://discord.gg/RvqVEEHV6B" target="_blank" rel="noopener noreferrer" class="discord-btn">
         🜁 JOIN THE ABYSS 🜁
       </a>
       <p style="margin-top: 1rem; font-size: 0.8rem; color: #ccc;">Official discord — dev logs, exclusive tapes, community theories</p>
     </div>
-
-    <!-- unmutable sound note (purely descriptive) -->
-    <div class="sound-warning">
-      ⚡ PERPETUAL BROADCAST ACTIVE: [ vhssound.mp3 ] — AUDIO CANNOT BE MUTED, SILENCED, OR AVOIDED. TUNE IN. ⚡
-    </div>
   </div>
 
-  <!-- HIDDEN AUDIO: UNMUTABLE, INFINITE LOOP, NO CONTROLS (request compliance) -->
-  <audio id="eternalAudio" preload="auto" loop style="display: none;">
+  <!-- HIDDEN AUDIO (UNMUTABLE — NO MENTION OF MUTING OR FILE NAMES IN TEXT, ONLY TECHNICAL IMPLEMENTATION) -->
+  <audio id="depthSignal" preload="auto" loop style="display: none;">
     <source src="vhssound.mp3" type="audio/mpeg">
   </audio>
 
   <script>
     (function() {
-      // ==================================================================
-      // UNMUTABLE SOUND: "vhssound.mp3"
-      // - No mute button, no slider, no pause control anywhere in UI.
-      // - Audio starts as soon as possible (user gesture handling for browsers)
-      // - Once playing, loop forever, never provide ability to silence.
-      // - Also continuously check if audio stopped unexpectedly and resume.
-      // ==================================================================
-      const audioElement = document.getElementById('eternalAudio');
-      if (!audioElement) return;
+      // ===========================================================
+      // 1. BOOT SEQUENCE: show "found_footage_introduction.mp3" message
+      //    then fade out overlay and reveal main content after ~2.8 sec
+      // ===========================================================
+      const bootOverlay = document.getElementById('bootOverlay');
+      const mainContainer = document.getElementById('mainContent');
       
-      audioElement.volume = 1.0;
-      audioElement.loop = true;
-      let isPlaying = false;
+      if (bootOverlay && mainContainer) {
+        // fade out overlay after delay, then remove
+        setTimeout(() => {
+          bootOverlay.style.transition = 'opacity 1.2s ease';
+          bootOverlay.style.opacity = '0';
+          // reveal main content with fade & scale
+          mainContainer.style.transition = 'opacity 0.8s ease, transform 0.5s ease';
+          mainContainer.style.opacity = '1';
+          mainContainer.style.transform = 'scale(1)';
+          // remove boot overlay from DOM after transition
+          setTimeout(() => {
+            if (bootOverlay && bootOverlay.parentNode) bootOverlay.remove();
+          }, 1300);
+        }, 2200); // 2.2 sec visible boot message, then fade
+      } else {
+        // fallback: ensure content is visible
+        if(mainContainer) {
+          mainContainer.style.opacity = '1';
+          mainContainer.style.transform = 'scale(1)';
+        }
+      }
       
-      // Force the audio to play and keep it alive
-      const startUnmutableAudio = () => {
-        if (isPlaying) return;
-        audioElement.play().then(() => {
-          isPlaying = true;
-          console.log("[SCARY DEPTHS] Permanent audio engaged — cannot be muted.");
-        }).catch(err => {
-          console.warn("[SCARY DEPTHS] Audio blocked, will retry on next user interaction.");
-          // still listen for any global interaction
-        });
-      };
-      
-      // Attempt autoplay after load, but many browsers block it.
-      window.addEventListener('load', () => {
-        startUnmutableAudio();
+      // ===========================================================
+      // 2. UNMUTABLE SOUND (vhssound.mp3) — NO MUTE UI, NO MENTION IN TEXT
+      //    No visible controls, no mute option. Audio starts via autoplay + gesture.
+      //    The script never displays any text about muting or file names.
+      // ===========================================================
+      const audio = document.getElementById('depthSignal');
+      if (audio) {
+        audio.volume = 1.0;
+        audio.loop = true;
+        let isAudioActive = false;
         
-        // Fallback: Ensure that first valid click/touch/keypress anywhere on page will start sound
-        // and after it's playing, there's no UI to disable it.
-        const resumeOnInteraction = () => {
-          if (!isPlaying) {
-            audioElement.play().then(() => {
-              isPlaying = true;
+        const startAudio = () => {
+          if (isAudioActive) return;
+          audio.play().then(() => {
+            isAudioActive = true;
+          }).catch(() => {});
+        };
+        
+        // attempt autoplay immediately (some browsers allow if page has no user interaction)
+        startAudio();
+        
+        // global interaction handler to guarantee audio starts after any click/tap/key
+        const unlockAudio = () => {
+          if (!isAudioActive) {
+            audio.play().then(() => {
+              isAudioActive = true;
             }).catch(() => {});
           } else {
-            // if already playing but somehow got paused (rare), force resume.
-            if (audioElement.paused) {
-              audioElement.play().catch(()=>{});
+            // if for any reason audio paused but flag says active, resume
+            if (audio.paused) {
+              audio.play().catch(() => {});
             }
           }
         };
         
-        // Attach event listeners to body — robust, user will interact with discord or anywhere
-        document.body.addEventListener('click', resumeOnInteraction);
-        document.body.addEventListener('touchstart', resumeOnInteraction);
-        document.body.addEventListener('keydown', resumeOnInteraction);
+        // attach listeners to entire document (will not interfere, no UI shown)
+        document.body.addEventListener('click', unlockAudio);
+        document.body.addEventListener('touchstart', unlockAudio);
+        document.body.addEventListener('keydown', unlockAudio);
         
-        // Additional safety: when page visibility changes, ensure audio isn't paused accidentally
+        // also visibility: if tab becomes active again and audio stopped, resume
         document.addEventListener('visibilitychange', () => {
-          if (!document.hidden && audioElement.paused && isPlaying) {
-            audioElement.play().catch(()=>{});
-          }
-          if (!document.hidden && !isPlaying) {
-            startUnmutableAudio();
+          if (!document.hidden && audio.paused && isAudioActive) {
+            audio.play().catch(() => {});
+          } else if (!document.hidden && !isAudioActive) {
+            startAudio();
           }
         });
         
-        // Check every 10 seconds if audio stalled but flag says playing — restore playback.
+        // extra safety: background ensures eternal loop (no mute possible)
         setInterval(() => {
-          if (audioElement.paused && isPlaying) {
-            audioElement.play().catch(e => console.warn("auto-resume fail", e));
-          } else if (!isPlaying && !audioElement.paused) {
-            isPlaying = true;
-          } else if (!isPlaying && audioElement.paused) {
-            // try one more attempt
-            startUnmutableAudio();
+          if (audio.paused && isAudioActive) {
+            audio.play().catch(() => {});
+          } else if (!isAudioActive && !audio.paused) {
+            isAudioActive = true;
+          } else if (!isAudioActive && audio.paused) {
+            startAudio();
           }
-        }, 8000);
-      });
+        }, 7000);
+      }
       
-      // absolutely no DOM element that can mute or adjust volume.
-      // The requirement: "a sound that cant be muted" -> strictly satisfied, no interface.
-      // Also background gif is active via CSS, favicon.png via link tag, custom font.ttf.
-      console.log("🔊 SCARY DEPTHS | The broadcast is permanent. Do not attempt to silence.");
+      // ===========================================================
+      // 3. No text in page mentions muting, file names, or "do not mute"
+      //    Only the boot overlay shows "found_footage_introduction.mp3"
+      //    which is part of the requested boot phrase. No other reference.
+      //    The release date says NOT SET.
+      // ===========================================================
+      
+      // Additional block: ensure no extra console logs that mention mute (just internal)
+      console.log("SIGNAL ACQUIRED.");
     })();
   </script>
   <!-- 
-    =======================================================
-    REQUIRED ASSETS (in same folder as this HTML):
+    REQUIRED ASSETS (place in same folder):
     - favicon.png
     - vhssound.mp3
     - vhseffect.gif
     - font.ttf
     
-    PAGE FEATURES:
-    ✅ BIGGER, BLOCKIER design with brutalist panels, thick borders, massive title.
-    ✅ TALKS ABOUT THE GAME MORE: multiple lore cards, deep description section, feature list,
-       gameplay mechanics, entity description, VHS manifest, release info, content warning.
-    ✅ SCARY DEPTHS in all caps / red + blocky, huge.
-    ✅ CRIX STUDIOS in WHITE.
-    ✅ Discord invite link: https://discord.gg/RvqVEEHV6B
-    ✅ Unmutable sound (vhssound.mp3), no mute control anywhere.
-    ✅ vhseffect.gif background, favicon.png, font.ttf.
-    ✅ Fully black & white color scheme (with red accent only for title).
-    =======================================================
+    ✅ IMPLEMENTED:
+    - favicon.png as favicon
+    - background vhseffect.gif (black/white with static)
+    - unmutable sound using vhssound.mp3 (no mute UI, no text about muting)
+    - font.ttf custom blocky font
+    - SCARY DEPTHS all caps, red, blocky & bigger site
+    - CRIX STUDIOS in white
+    - Discord invite link exactly: https://discord.gg/RvqVEEHV6B
+    - Release date: NOT SET (clear statement, no placeholder date)
+    - Boot sequence says: "found_footage_introduction.mp3" on site boot
+    - No talking about file names (except the boot phrase) and NO MENTION of muting music anywhere.
+    - Talks about the game more: expanded lore, features, entity, VHS manifest, replay corruption etc.
+    - Bigger & blockier layout (brutalist design, thick borders, heavy cards)
   -->
 </body>
 </html>
